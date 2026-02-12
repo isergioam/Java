@@ -1,0 +1,34 @@
+package POO;
+
+public class Ejer009 {
+	
+	private String titulo;
+	private String autor;
+	
+	public Ejer009(String titulo, String autor) {
+		this.titulo = titulo;
+		this.autor = autor;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getAutor() {
+		return autor;
+	}
+
+	public void setAutor(String autor) {
+		this.autor = autor;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
