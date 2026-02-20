@@ -41,6 +41,7 @@ public class Ejer03 {
 		}
 
 		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/Serializacion/Ejer03_libros.dat"))) {
+			@SuppressWarnings("unchecked")
 			ArrayList<Libros> leidos = (ArrayList<Libros>) ois.readObject();
 			for (Libros libros : leidos) {
 				System.out.println(libros);
