@@ -123,17 +123,17 @@ public class Ejer17 {
 
         south.add(new JLabel("Total libros:"));
         tfTotalLibros = new JTextField(5);
-        tfTotalLibros.setEnabled(false);
+        tfTotalLibros.setEnabled(false); // No dejamos introducir datos
         south.add(tfTotalLibros);
 
         south.add(new JLabel("Total prestados:"));
         tfTotalPrestados = new JTextField(5);
-        tfTotalPrestados.setEnabled(false);
+        tfTotalPrestados.setEnabled(false); // No dejamos introducir datos
         south.add(tfTotalPrestados);
 
         south.add(new JLabel("Total días acumulados:"));
         tfTotalDias = new JTextField(6);
-        tfTotalDias.setEnabled(false);
+        tfTotalDias.setEnabled(false); // No dejamos introducir datos
         south.add(tfTotalDias);
 
         // ------------------------
