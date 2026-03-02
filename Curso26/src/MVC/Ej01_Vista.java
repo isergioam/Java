@@ -1,14 +1,14 @@
 package MVC;
 
+import javax.swing.*;
+
 public class Ej01_Vista {
 	// mostrar persona
 	public void mostrarPersona(String nombre, String apellidos, int edad) {
-		System.out.println("⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥");		 
-		System.out.println("✜ Nombre: " + nombre + "\n✜ Apellidos: " + apellidos + "\n✜ Edad: " + edad);
-		System.out.println("⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥");	
+		JOptionPane.showMessageDialog(null, "⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥\n ✜ Nombre: " + nombre + "\n ✜ Apellidos: " + apellidos + "\n ✜ Edad: " + edad + "\n⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥⛥", "Usuario", JOptionPane.CLOSED_OPTION);
 	}
 	
 	public void error(String mensaje) {
-		System.out.println(mensaje);
+		JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
 	}
 }
