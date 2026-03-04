@@ -8,17 +8,16 @@ public class Ej05_Controlador {
 		this.modelo = modelo;
 		this.vista = vista;
 	}
-	/*
-	public void addAlumno(String curso, String dni, String nombre, String apellidos, String email) {
+	
+	public void addAlumno(String dni, String nombre, String apellidos, String email) {
 
 
-			Ej05_Modelo p = new Ej05_Modelo(curso, dni, nombre, apellidos, email);
+			Ej03_Modelo p = new Ej03_Modelo(dni, nombre, apellidos, email);
 			
 			modelo.add(p);
 	}
-	*/
+	
 	public void mostrarInfo() {
-
 		vista.mostrarListado(modelo.getAlumnos(), modelo.getCurso());
 	}
 

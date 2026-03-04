@@ -5,25 +5,23 @@ import java.util.ArrayList;
 public class Ej05_Modelo {
 	
 	private ArrayList<Ej03_Modelo> alumnos = new ArrayList<>();
-	private String curso;	
+	private Ej04_Modelo curso;	
 	
-	public void addEj(Ej03_Modelo a) {
+	public Ej05_Modelo(ArrayList<Ej03_Modelo> alumnos, Ej04_Modelo curso) {
+		this.alumnos = alumnos;
+		this.curso = curso;
+	}
+	
+	public void add(Ej03_Modelo a) {
 		alumnos.add(a);
 	}
 	
-	public void setAlumnos(ArrayList<Ej03_Modelo> alumnos) {
-		this.alumnos = alumnos;
-	}
-
-	public void setCurso(String curso) {
-		this.curso = curso;
-	}
-
 	public ArrayList<Ej03_Modelo> getAlumnos(){
-		return this.alumnos;
+		return alumnos;
 	}
-	public String getCurso(){
+	public Ej04_Modelo getCurso(){
 		return this.curso;
 	}
+	
 
 }
