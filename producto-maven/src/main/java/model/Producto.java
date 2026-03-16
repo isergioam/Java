@@ -6,7 +6,7 @@ import jakarta.persistence.*;
  * Entidad que representa un producto.
  */
 @Entity
-@Table(name = "productos")
+@Table(name = "producto")
 public class Producto {
 
     /**
@@ -27,7 +27,11 @@ public class Producto {
      */
     @Column(nullable = false)
     private double precio;
+    @Column(nullable = true)
+    private int stock;
 
+    @Column(length = 250)
+    private String descripcion;
     /**
      * Constructor vacío obligatorio para Hibernate.
      */
@@ -37,9 +41,11 @@ public class Producto {
     /**
      * Constructor con parámetros.
      */
-    public Producto(String nombre, double precio) {
+    public Producto(String nombre, double precio, int stock, String descripcion) {
         this.nombre = nombre;
         this.precio = precio;
+        this.stock = stock;
+        this.descripcion = descripcion;
     }
 
     public int getId() {
@@ -66,8 +72,25 @@ public class Producto {
         this.precio = precio;
     }
 
-    @Override
-    public String toString() {
-        return "Producto{id=" + id + ", nombre='" + nombre + "', precio=" + precio + "}";
-    }
+    public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	@Override
+	public String toString() {
+		return "Producto [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", stock=" + stock
+				+ ", descripcion=" + descripcion + "]";
+	}
 }

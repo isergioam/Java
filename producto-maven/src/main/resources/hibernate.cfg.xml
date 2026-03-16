@@ -10,7 +10,7 @@
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 
         <!-- URL de conexión -->
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3307/tienda</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3307/productos</property>
 
         <!-- Usuario -->
         <property name="hibernate.connection.username">root</property>
