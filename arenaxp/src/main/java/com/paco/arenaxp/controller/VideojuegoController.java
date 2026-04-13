@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.paco.arenaxp.entity.Videojuego;
 import com.paco.arenaxp.service.VideojuegoService;
 
-// Indicamos que esta clase es un controlador REST.
-@RestController
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-// Ruta base para este controlador.
+
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
+//Ruta base para este controlador.
 @RequestMapping("/api/videojuegos")
 public class VideojuegoController {
 
