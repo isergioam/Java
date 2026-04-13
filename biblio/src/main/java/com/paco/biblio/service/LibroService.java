@@ -1,6 +1,5 @@
 package com.paco.biblio.service;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +17,6 @@ public class LibroService {
 
     private final LibroRepository libroRepository;
     private final AutorRepository autorRepository;
-    
 
     public LibroService(LibroRepository libroRepository, AutorRepository autorRepository) {
         this.libroRepository = libroRepository;
@@ -26,13 +24,21 @@ public class LibroService {
     }
 
     public LibroSalidaDTO crearLibro(LibroEntradaDTO dto) {
-    	Optional<Autor> autorOptional = autorRepository.findById(dto.);
-    	
+
+        Optional<Autor> autorOptional = autorRepository.findById(dto.getAutorId());
+
+        if (autorOptional.isEmpty()) {
+            return null; // o lanzar excepción personalizada
+        }
+
+        Autor autor = autorOptional.get();
+
         Libro libro = new Libro(
                 dto.getTitulo(),
                 dto.getIsbn(),
                 dto.getAnioPublicacion(),
-                dto.getDisponible()
+                dto.getDisponible(),
+                autor
         );
 
         Libro guardado = libroRepository.save(libro);
@@ -71,10 +77,17 @@ public class LibroService {
         }
 
         Libro libro = libroOptional.get();
+
         libro.setTitulo(dto.getTitulo());
         libro.setIsbn(dto.getIsbn());
         libro.setAnioPublicacion(dto.getAnioPublicacion());
         libro.setDisponible(dto.getDisponible());
+
+        // actualizar autor si viene informado
+        if (dto.getAutorId() != null) {
+            Optional<Autor> autorOptional = autorRepository.findById(dto.getAutorId());
+            autorOptional.ifPresent(libro::setAutor);
+        }
 
         Libro actualizado = libroRepository.save(libro);
         return convertirASalidaDTO(actualizado);
@@ -90,12 +103,23 @@ public class LibroService {
     }
 
     private LibroSalidaDTO convertirASalidaDTO(Libro libro) {
+
+        Long autorId = null;
+        String autorNombre = null;
+
+        if (libro.getAutor() != null) {
+            autorId = libro.getAutor().getId();
+            autorNombre = libro.getAutor().getNombre();
+        }
+
         return new LibroSalidaDTO(
                 libro.getId(),
                 libro.getTitulo(),
                 libro.getIsbn(),
                 libro.getAnioPublicacion(),
-                libro.getDisponible()
+                libro.getDisponible(),
+                autorId,
+                autorNombre
         );
     }
 }
