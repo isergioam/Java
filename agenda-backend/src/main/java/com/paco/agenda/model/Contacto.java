@@ -1,12 +1,19 @@
 package com.paco.agenda.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // Esta clase representa la tabla de contactos
 @Entity
@@ -33,6 +40,14 @@ public class Contacto {
     // Nombre de la columna de clave foránea
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
+    
+    @JsonManagedReference
+    @OneToMany(mappedBy = "contacto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Telefono> telefonos = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "contacto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Email> emails = new ArrayList<>();
 
     // Constructor vacío obligatorio para JPA
     public Contacto() {
@@ -95,4 +110,22 @@ public class Contacto {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+    
+
+    public List<Telefono> getTelefonos() {
+        return telefonos;
+    }
+
+    public void setTelefonos(List<Telefono> telefonos) {
+        this.telefonos = telefonos;
+    }
+
+    public List<Email> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<Email> emails) {
+        this.emails = emails;
+    }
+    
 }
