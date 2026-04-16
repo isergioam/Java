@@ -12,4 +12,5 @@ public class PruebaController {
     public String prueba() {
         return "Backend de Agenda funcionando correctamente";
     }
+
 }
