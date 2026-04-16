@@ -1,60 +1,49 @@
 package com.paco.agenda.controller;
 
-import com.paco.agenda.model.Categoria;
-import com.paco.agenda.repository.CategoriaRepository;
-import org.springframework.http.ResponseEntity;
+import com.paco.agenda.dto.CategoriaRequestDTO;
+import com.paco.agenda.dto.CategoriaResponseDTO;
+import com.paco.agenda.service.CategoriaService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/categorias")
 public class CategoriaController {
 
-    private final CategoriaRepository categoriaRepository;
+    private final CategoriaService categoriaService;
 
-    public CategoriaController(CategoriaRepository categoriaRepository) {
-        this.categoriaRepository = categoriaRepository;
+    public CategoriaController(CategoriaService categoriaService) {
+        this.categoriaService = categoriaService;
     }
 
     @GetMapping
-    public List<Categoria> listarTodas() {
-        return categoriaRepository.findAll();
+    public List<CategoriaResponseDTO> listarTodas() {
+        return categoriaService.listarTodas();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Categoria> obtenerPorId(@PathVariable Long id) {
-        Optional<Categoria> categoria = categoriaRepository.findById(id);
-        return categoria.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public CategoriaResponseDTO obtenerPorId(@PathVariable Long id) {
+        return categoriaService.obtenerPorId(id);
     }
 
     @PostMapping
-    public Categoria crear(@RequestBody Categoria categoria) {
-        return categoriaRepository.save(categoria);
+    @ResponseStatus(HttpStatus.CREATED)
+    public CategoriaResponseDTO crear(@Valid @RequestBody CategoriaRequestDTO request) {
+        return categoriaService.crear(request);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Categoria> actualizar(@PathVariable Long id, @RequestBody Categoria datos) {
-        Optional<Categoria> categoriaExistente = categoriaRepository.findById(id);
-
-        if (categoriaExistente.isPresent()) {
-            Categoria categoria = categoriaExistente.get();
-            categoria.setNombre(datos.getNombre());
-            return ResponseEntity.ok(categoriaRepository.save(categoria));
-        }
-
-        return ResponseEntity.notFound().build();
+    public CategoriaResponseDTO actualizar(@PathVariable Long id,
+                                           @Valid @RequestBody CategoriaRequestDTO request) {
+        return categoriaService.actualizar(id, request);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        if (categoriaRepository.existsById(id)) {
-            categoriaRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }
-
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) {
+        categoriaService.eliminar(id);
     }
 }
