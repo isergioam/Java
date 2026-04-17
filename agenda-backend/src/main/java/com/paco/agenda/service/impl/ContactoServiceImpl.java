@@ -76,6 +76,21 @@ public class ContactoServiceImpl implements ContactoService {
 
         return toResponseDTO(contactoRepository.save(contacto));
     }
+    
+    @Override
+    public List<ContactoResponseDTO> buscar(String texto, Long categoriaId, Boolean soloFavoritos) {
+        List<Contacto> contactos = contactoRepository.findAll();
+
+        return contactos.stream()
+                .filter(c -> texto == null || texto.isBlank() ||
+                        c.getNombre().toLowerCase().contains(texto.toLowerCase()) ||
+                        c.getApellidos().toLowerCase().contains(texto.toLowerCase()))
+                .filter(c -> categoriaId == null ||
+                        (c.getCategoria() != null && c.getCategoria().getId().equals(categoriaId)))
+                .filter(c -> soloFavoritos == null || !soloFavoritos || Boolean.TRUE.equals(c.getFavorito()))
+                .map(this::toResponseDTO)
+                .toList();
+    }
 
     private ContactoResponseDTO toResponseDTO(Contacto contacto) {
         ContactoResponseDTO dto = new ContactoResponseDTO();
@@ -102,4 +117,22 @@ public class ContactoServiceImpl implements ContactoService {
 
         return dto;
     }
+
+	@Override
+	public ContactoResponseDTO actualizar(Long id, ContactoRequestDTO request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void eliminar(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ContactoResponseDTO cambiarFavorito(Long id, Boolean favorito) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

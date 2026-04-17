@@ -30,6 +30,21 @@ public class ContactoController {
     public ContactoResponseDTO obtenerPorId(@PathVariable Long id) {
         return contactoService.obtenerPorId(id);
     }
+    
+    @GetMapping("/buscar")
+    public List<ContactoResponseDTO> buscar(
+            @RequestParam(required = false) String texto,
+            @RequestParam(required = false) Long categoriaId,
+            @RequestParam(required = false) Boolean soloFavoritos) {
+
+        return contactoService.buscar(texto, categoriaId, soloFavoritos);
+    }
+    
+    @PatchMapping("/{id}/favorito")
+    public ContactoResponseDTO cambiarFavorito(@PathVariable Long id,
+                                               @RequestParam Boolean favorito) {
+        return contactoService.cambiarFavorito(id, favorito);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
